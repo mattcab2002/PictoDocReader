@@ -3,13 +3,13 @@ import numpy as np
 
 imgArray = imread("images/img1.png")
 imgSize = imgArray.shape
-imgMaxRow = len(imgArray)
-imgMaxCol = len(imgArray[0])
+imgHeight = len(imgArray)
+imgWidth = len(imgArray[0])
 
 docArray = imread("documents/doc1.png")
 docSize = docArray.shape
-docMaxRow = len(docArray)
-docMaxCol = len(docArray[0])
+docHeight = len(docArray)
+docWidth = len(docArray[0])
 
 
 def pixelsMatch(docRow, docCol, imgRow, imgCol):
@@ -48,14 +48,14 @@ for row in range(len(docArray)):
                 if ((currentDoc != currentImg).all()):
                     print("break 1")
                     break
-                if ((i == imgMaxRow - 1) and (j == imgMaxCol - 1)):
+                if ((i == imgHeight - 1) and (j == imgWidth - 1)):
                     print("found image")
 
                     break
-                if (j + 1 >= imgMaxCol):
-                    if ((i + 1) < imgMaxRow):
+                if (j + 1 >= imgWidth):
+                    if ((i + 1) < imgHeight):
                         i += 1
-                        if ((i2+1) >= docMaxRow):
+                        if ((i2+1) >= docHeight):
                             print("break 2")
                             break
                         i2 = i2 + 1
@@ -63,7 +63,7 @@ for row in range(len(docArray)):
                         j2 = col
                 else:
                     j = j+1
-                    if ((j2 + 1) >= docMaxCol):
+                    if ((j2 + 1) >= docWidth):
                         print("break 3")
                         break
                     j2 += 1
