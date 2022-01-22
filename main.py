@@ -31,6 +31,19 @@ def validateCorners(row, col):
     else:
         return False
 
+def validateFullImage(row, col , docArray , docHeight , docWidth):
+    for i in range(imgHeight):
+        for j in range(imgWidth):
+            try:
+                # check all elements of doc to image
+                if (pixelsMatch(row + i, col + j, i, j , docArray , docHeight , docWidth)):
+                    continue
+                else:
+                    return False
+            except IndexError:
+                return False
+    return True
+
 
 for row in range(len(docArray)):
     for col in range(len(docArray[row])):
