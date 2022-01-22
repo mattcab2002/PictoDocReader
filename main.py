@@ -14,6 +14,8 @@ docArray = imread("documents/doc1.png")
 docSize = docArray.shape
 docHeight = len(docArray)
 docWidth = len(docArray[0])
+<<<<<<< HEAD
+=======
 
 
 def pixelsMatch(docRow, docCol, imgRow, imgCol):
@@ -26,6 +28,30 @@ def pixelsMatch(docRow, docCol, imgRow, imgCol):
     return True
 
 
+def validateCorners(row, col):
+    if (pixelsMatch(row, col, 0, 0)):  # top left
+        if (pixelsMatch(row, col+imgWidth-1, 0, -1)):  # bottom left
+            if (pixelsMatch(row+imgHeight-1, col, -1, 0)):  # top right
+                if (pixelsMatch(row+imgHeight-1, col+imgWidth-1, -1, -1)):  # bottom right
+                    return True
+    else:
+        return False
+
+
+>>>>>>> pdf-conversion
+
+
+def pixelsMatch(docRow, docCol, imgRow, imgCol):
+    if (docRow >= docHeight) or (docCol >= docWidth):
+        return False
+    minlen = min(len(docArray[docRow][docCol]), len(imgArray[imgRow][imgCol]))
+    for i in range(minlen):
+        if (docArray[docRow][docCol][i] != imgArray[imgRow][imgCol][i]):
+            return False
+    return True
+
+
+<<<<<<< HEAD
 def validateCorners(row, col):
     if (pixelsMatch(row, col, 0, 0)):  # top left
 <<<<<<< HEAD
@@ -126,3 +152,28 @@ def main():
 
 if __name__ == "__main__":
     main()
+=======
+                if ((currentDoc != currentImg).all()):
+                    print("break 1")
+                    break
+                if ((i == imgHeight - 1) and (j == imgWidth - 1)):
+                    print("found image")
+
+                    break
+                if (j + 1 >= imgWidth):
+                    if ((i + 1) < imgHeight):
+                        i += 1
+                        if ((i2+1) >= docHeight):
+                            print("break 2")
+                            break
+                        i2 = i2 + 1
+                        j = 0
+                        j2 = col
+                else:
+                    j = j+1
+                    if ((j2 + 1) >= docWidth):
+                        print("break 3")
+                        break
+                    j2 += 1
+            print(row, col)
+>>>>>>> pdf-conversion
