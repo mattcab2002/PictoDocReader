@@ -59,7 +59,7 @@ def diagonalSearch1(row, col, docArray, docHeight, docWidth):
 
 
 def diagonalSearch2(doc, row, col, img, imgWidth, imgHeight, docArray, docHeight, docWidth):
-    j = imgHeight
+    j = imgWidth - 1
     for i in range(imgHeight - 1, 0, -1):
         try:
             if (doc[row + i][col + j] != img[i][j]).all():
