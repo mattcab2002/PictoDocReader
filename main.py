@@ -1,17 +1,42 @@
 from matplotlib.image import imread
 import numpy as np
 import sys
+from plotOutline import *
+import time
 
-imgArray = imread("images/img1.png")
+imgArray = imread("images/img5.png")
 imgSize = imgArray.shape
 imgHeight = len(imgArray)
 imgWidth = len(imgArray[0])
 
-docArray = imread("documents/doc1.png")
+docArray = imread("documents/doc5.png")
 docSize = docArray.shape
 docHeight = len(docArray)
 docWidth = len(docArray[0])
 
+def findOccurence(func, x, y):
+    return func(x, y)
+
+
+def findFirstOccurence(func, row, col, x, y):
+    start_time = time.time()
+    if (findOccurence(func, row-x, col-y)):
+        print("--- %s seconds ---" %
+              (time.time() - start_time))  # print execution time
+        print("Top Left Corner: ({},{}), Top Right Corner: ({},{}), Bottom Left Corner: ({},{}), Bottom Right Corner: ({},{})".format(
+            row, col, row+imgWidth, col, row, col+imgHeight, row+imgWidth, col+imgHeight))
+        showImage(docArray, row-x, col-y, imgWidth, imgHeight, 4)
+        exit(0)
+
+
+def findAllOccurences(func, row, col, x, y, count):
+    start_time = time.time()
+    if (findOccurence(func, row-x, col-y)):
+        print("--- %s seconds ---" %
+              (time.time() - start_time))  # print execution time
+        print("{}th Occurence located @ Top Left Corner: ({},{}), Top Right Corner: ({},{}), Bottom Left Corner: ({},{}), Bottom Right Corner: ({},{})".format(count,
+                                                                                                                                                               row, col, row+imgWidth, col, row, col+imgHeight, row+imgWidth, col+imgHeight))
+        showImage(docArray, row-x, col-y, imgWidth, imgHeight, 4)
 
 def pixelsMatch(docRow, docCol, imgRow, imgCol):
     if (docRow >= docHeight) or (docCol >= docWidth):
@@ -34,7 +59,7 @@ def validateCorners(row, col):
         return False
 
 
-def validateFullImage(row, col, docArray, docHeight, docWidth):
+def validateFullImage(row, col):
     for i in range(imgHeight):
         for j in range(imgWidth):
             try:
@@ -45,8 +70,17 @@ def validateFullImage(row, col, docArray, docHeight, docWidth):
                     return False
             except IndexError:
                 return False
-    print("Found Image")
     return True
+
+def cropImage():
+    pixel = imgArray[0][0]
+    for row in range(imgHeight):
+        for col in range(imgWidth):
+            if not(pixelsMatch(row, col, 0, 0)):
+                return [row, col]
+            else:
+                continue
+    return [0, 0]
 
 
 def diagonalSearch(row, col, docArray, docHeight, docWidth):
@@ -65,15 +99,23 @@ def diagonalSearch(row, col, docArray, docHeight, docWidth):
 
 
 def main():
+    crop = cropImage()
+    count = 0
+    x = crop[0]
+    y = crop[1]
+    func_dict = {"0": validateCorners,
+                 "1": diagonalSearch, "2": validateFullImage}
     for row in range(docHeight-imgHeight+1):
         for col in range(docWidth-imgWidth+1):
-            if (pixelsMatch(row, col, 0, 0)):  # find first instance of correct pixel
+            if (pixelsMatch(row, col, x, y)):  # find first instance of correct pixel
                 if(sys.argv[1] == "0"):
-                    validateCorners(row, col)
-                elif (sys.argv[1] == "1"):
-                    validateFullImage(row, col, docArray, docHeight, docWidth)
-                elif(sys.argv[1] == "2"):
-                    diagonalSearch(row, col, docArray, docHeightdocWidth)
+                    findFirstOccurence(
+                        func_dict[sys.argv[2]], row, col, x, y)
+                elif(sys.argv[1] == "1"):
+                    findAllOccurences(
+                        func_dict[sys.argv[2]], row, col, x, y, count)
+                    count += 1
+                    break
                 else:
                     print("Invalid command")
                     exit(0)
