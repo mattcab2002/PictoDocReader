@@ -24,25 +24,27 @@ def pixelsMatch(docRow, docCol, imgRow, imgCol):
 
 def validateCorners(row, col):
     if (pixelsMatch(row, col, 0, 0)):  # top left
-        if (pixelsMatch(row, col+imgWidth-1, 0, -1)):  # bottom left
-            if (pixelsMatch(row+imgHeight-1, col, -1, 0)):  # top right
-                if (pixelsMatch(row+imgHeight-1, col+imgWidth-1, -1, -1)):  # bottom right
+        if (pixelsMatch(row, col + imgWidth - 1, 0, -1)):  # bottom left
+            if (pixelsMatch(row + imgHeight - 1, col, -1, 0)):  # top right
+                if (pixelsMatch(row + imgHeight - 1, col + imgWidth - 1, -1, -1)):  # bottom right
                     return True
     else:
         return False
 
-def validateFullImage(row, col , docArray , docHeight , docWidth):
+
+def validateFullImage(row, col, docArray, docHeight, docWidth):
     for i in range(imgHeight):
         for j in range(imgWidth):
             try:
                 # check all elements of doc to image
-                if (pixelsMatch(row + i, col + j, i, j , docArray , docHeight , docWidth)):
+                if (pixelsMatch(row + i, col + j, i, j, docArray, docHeight, docWidth)):
                     continue
                 else:
                     return False
             except IndexError:
                 return False
     return True
+
 
 def diagonalSearch1(row, col, docArray, docHeight, docWidth):
     j = 0
@@ -74,5 +76,7 @@ def diagonalSearch2(doc, row, col, img, imgWidth, imgHeight, docArray, docHeight
 
 def main():
     pass
+
+
 if __name__ == "__main__":
     main()
