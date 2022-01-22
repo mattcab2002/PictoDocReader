@@ -3,6 +3,8 @@ import numpy as np
 import sys
 from plotOutline import *
 import time
+import shutil
+import os
 
 imgArray = imread("images/img5.png")
 imgSize = imgArray.shape
@@ -105,6 +107,7 @@ def main():
     y = crop[1]
     func_dict = {"0": validateCorners,
                  "1": diagonalSearch, "2": validateFullImage}
+    print(imgArray[0][0])
     for row in range(docHeight-imgHeight+1):
         for col in range(docWidth-imgWidth+1):
             if (pixelsMatch(row, col, x, y)):  # find first instance of correct pixel
@@ -122,4 +125,17 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    for entry in os.scandir(r'pages'):
+        if (entry.path.endswith('.png')):
+            docArray = imread(entry.path)
+            docSize = docArray.shape
+            docHeight = len(docArray)
+            docWidth = len(docArray[0])
+            main()
+    # copy documents and image to assets for future reference
+    shutil.copyfile(os.path.join('images/', os.listdir('images/')
+                    [0]), os.path.join('assets/', os.listdir('images/')[0]))
+    shutil.rmtree(f'images/')
+    shutil.copyfile(os.path.join('documents/', os.listdir('documents/')
+                    [0]), os.path.join('assets/', os.listdir('documents/')[0]))
+    shutil.rmtree(f'documents/')
