@@ -72,39 +72,7 @@ def diagonalSearch2(doc, row, col, img, imgWidth, imgHeight, docArray, docHeight
     return True
 
 
-for row in range(len(docArray)):
-    for col in range(len(docArray[row])):
-        if ((docArray[row][col] == imgArray[0][0]).all()):
-            i = 0
-            j = 0
-            i2 = row
-            j2 = col
-
-            while (True):
-
-                currentDoc = docArray[i2][j2]
-                currentImg = imgArray[i][j]
-
-                if ((currentDoc != currentImg).all()):
-                    print("break 1")
-                    break
-                if ((i == imgHeight - 1) and (j == imgWidth - 1)):
-                    print("found image")
-
-                    break
-                if (j + 1 >= imgWidth):
-                    if ((i + 1) < imgHeight):
-                        i += 1
-                        if ((i2+1) >= docHeight):
-                            print("break 2")
-                            break
-                        i2 = i2 + 1
-                        j = 0
-                        j2 = col
-                else:
-                    j = j+1
-                    if ((j2 + 1) >= docWidth):
-                        print("break 3")
-                        break
-                    j2 += 1
-            print(row, col)
+def main():
+    pass
+if __name__ == "__main__":
+    main()
