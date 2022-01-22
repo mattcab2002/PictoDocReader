@@ -44,6 +44,33 @@ def validateFullImage(row, col , docArray , docHeight , docWidth):
                 return False
     return True
 
+def diagonalSearch1(row, col, docArray, docHeight, docWidth):
+    j = 0
+    for i in range(imgHeight):
+        try:
+            if ((not pixelsMatch(row + i, col + j, i, j, docArray, docHeight, docWidth))):
+                return False
+            else:
+                j += 1
+                continue
+        except IndexError:
+            return False
+    return True
+
+
+def diagonalSearch2(doc, row, col, img, imgWidth, imgHeight, docArray, docHeight, docWidth):
+    j = imgHeight
+    for i in range(imgHeight - 1, 0, -1):
+        try:
+            if (doc[row + i][col + j] != img[i][j]).all():
+                return False
+            else:
+                j -= 1
+                continue
+        except IndexError:
+            return False
+    return True
+
 
 for row in range(len(docArray)):
     for col in range(len(docArray[row])):
