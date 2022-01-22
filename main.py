@@ -1,5 +1,6 @@
 from matplotlib.image import imread
 import numpy as np
+import sys
 
 imgArray = imread("images/img1.png")
 imgSize = imgArray.shape
@@ -27,52 +28,56 @@ def validateCorners(row, col):
         if (pixelsMatch(row, col+imgWidth-1, 0, -1)):  # bottom left
             if (pixelsMatch(row+imgHeight-1, col, -1, 0)):  # top right
                 if (pixelsMatch(row+imgHeight-1, col+imgWidth-1, -1, -1)):  # bottom right
+                    print("Found Image")
                     return True
     else:
         return False
 
-def validateFullImage(row, col , docArray , docHeight , docWidth):
+
+def validateFullImage(row, col, docArray, docHeight, docWidth):
     for i in range(imgHeight):
         for j in range(imgWidth):
             try:
                 # check all elements of doc to image
-                if (pixelsMatch(row + i, col + j, i, j , docArray , docHeight , docWidth)):
+                if (pixelsMatch(row + i, col + j, i, j)):
                     continue
                 else:
                     return False
             except IndexError:
                 return False
+    print("Found Image")
     return True
 
-def diagonalSearch1(row, col, docArray, docHeight, docWidth):
+
+def diagonalSearch(row, col, docArray, docHeight, docWidth):
     j = 0
     for i in range(imgHeight):
         try:
-            if ((not pixelsMatch(row + i, col + j, i, j, docArray, docHeight, docWidth))):
+            if not (pixelsMatch(row + i, col + j, i, j)):
                 return False
             else:
                 j += 1
                 continue
         except IndexError:
             return False
-    return True
-
-
-def diagonalSearch2(doc, row, col, img, imgWidth, imgHeight, docArray, docHeight, docWidth):
-    j = imgWidth - 1
-    for i in range(imgHeight - 1, 0, -1):
-        try:
-            if (doc[row + i][col + j] != img[i][j]).all():
-                return False
-            else:
-                j -= 1
-                continue
-        except IndexError:
-            return False
+    print("Found Image")
     return True
 
 
 def main():
-    pass
+    for row in range(docHeight-imgHeight+1):
+        for col in range(docWidth-imgWidth+1):
+            if (pixelsMatch(row, col, 0, 0)):  # find first instance of correct pixel
+                if(sys.argv[1] == "0"):
+                    validateCorners(row, col)
+                elif (sys.argv[1] == "1"):
+                    validateFullImage(row, col, docArray, docHeight, docWidth)
+                elif(sys.argv[1] == "2"):
+                    diagonalSearch(row, col, docArray, docHeightdocWidth)
+                else:
+                    print("Invalid command")
+                    exit(0)
+
+
 if __name__ == "__main__":
     main()
