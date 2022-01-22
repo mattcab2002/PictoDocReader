@@ -25,10 +25,16 @@ def pixelsMatch(docRow, docCol, imgRow, imgCol):
 
 def validateCorners(row, col):
     if (pixelsMatch(row, col, 0, 0)):  # top left
+<<<<<<< HEAD
         if (pixelsMatch(row, col+imgWidth-1, 0, -1)):  # bottom left
             if (pixelsMatch(row+imgHeight-1, col, -1, 0)):  # top right
                 if (pixelsMatch(row+imgHeight-1, col+imgWidth-1, -1, -1)):  # bottom right
                     print("Found Image")
+=======
+        if (pixelsMatch(row, col + imgWidth - 1, 0, -1)):  # bottom left
+            if (pixelsMatch(row + imgHeight - 1, col, -1, 0)):  # top right
+                if (pixelsMatch(row + imgHeight - 1, col + imgWidth - 1, -1, -1)):  # bottom right
+>>>>>>> de9dc7df8d2217cbe0c636ae73006fab20cf31ef
                     return True
     else:
         return False
@@ -39,7 +45,11 @@ def validateFullImage(row, col, docArray, docHeight, docWidth):
         for j in range(imgWidth):
             try:
                 # check all elements of doc to image
+<<<<<<< HEAD
                 if (pixelsMatch(row + i, col + j, i, j)):
+=======
+                if (pixelsMatch(row + i, col + j, i, j, docArray, docHeight, docWidth)):
+>>>>>>> de9dc7df8d2217cbe0c636ae73006fab20cf31ef
                     continue
                 else:
                     return False
@@ -49,7 +59,11 @@ def validateFullImage(row, col, docArray, docHeight, docWidth):
     return True
 
 
+<<<<<<< HEAD
 def diagonalSearch(row, col, docArray, docHeight, docWidth):
+=======
+def diagonalSearch1(row, col, docArray, docHeight, docWidth):
+>>>>>>> de9dc7df8d2217cbe0c636ae73006fab20cf31ef
     j = 0
     for i in range(imgHeight):
         try:
@@ -65,6 +79,7 @@ def diagonalSearch(row, col, docArray, docHeight, docWidth):
 
 
 def main():
+<<<<<<< HEAD
     for row in range(docHeight-imgHeight+1):
         for col in range(docWidth-imgWidth+1):
             if (pixelsMatch(row, col, 0, 0)):  # find first instance of correct pixel
@@ -77,6 +92,9 @@ def main():
                 else:
                     print("Invalid command")
                     exit(0)
+=======
+    pass
+>>>>>>> de9dc7df8d2217cbe0c636ae73006fab20cf31ef
 
 
 if __name__ == "__main__":
