@@ -11,6 +11,27 @@ docSize = docArray.shape
 docMaxRow = len(docArray)
 docMaxCol = len(docArray[0])
 
+
+def pixelsMatch(docRow, docCol, imgRow, imgCol):
+    if (docRow >= docHeight) or (docCol >= docWidth):
+        return False
+    minlen = min(len(docArray[docRow][docCol]), len(imgArray[imgRow][imgCol]))
+    for i in range(minlen):
+        if (docArray[docRow][docCol][i] != imgArray[imgRow][imgCol][i]):
+            return False
+    return True
+
+
+def validateCorners(row, col):
+    if (pixelsMatch(row, col, 0, 0)):  # top left
+        if (pixelsMatch(row, col+imgWidth-1, 0, -1)):  # bottom left
+            if (pixelsMatch(row+imgHeight-1, col, -1, 0)):  # top right
+                if (pixelsMatch(row+imgHeight-1, col+imgWidth-1, -1, -1)):  # bottom right
+                    return True
+    else:
+        return False
+
+
 for row in range(len(docArray)):
     for col in range(len(docArray[row])):
         if ((docArray[row][col] == imgArray[0][0]).all()):
