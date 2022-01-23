@@ -94,8 +94,8 @@ A pixel in the image can be a subset of the face of red-green pixels found on th
 Here's an example of a situation where this solution would seem fit:
 
 <div align="center">
-    <img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" width="200"/>
-	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 2" width="200"/>
+    <img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" width="250"/>
+	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 2" width="250"/>
 </div>
 
 ## Disclaimer
