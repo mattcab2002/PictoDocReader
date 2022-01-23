@@ -1,8 +1,17 @@
 import matplotlib.pyplot as plt
+import sys
+from matplotlib.image import imread
 
 
-def showImage(doc, row, col, imgWidth, imgHeight, thicc):
+def showImage(file_path, row, col, imgWidth, imgHeight, thicc):
+    doc = imread(file_path)
     doclist = doc.tolist()
+
+    row = int(row)
+    col = int(col)
+    imgWidth = int(imgWidth)
+    imgHeight = int(imgHeight)
+    thicc = int(thicc)
 
     for i in range(row, row + imgHeight):
         for j in range(col, col + imgWidth):
@@ -37,3 +46,8 @@ def plotPixel(image, x, y):
     docNumpy = np.array(doclist)
     imgplot = plt.imshow(docNumpy)
     plt.show()
+
+
+if __name__ == "__main__":
+    showImage(sys.argv[1], sys.argv[2], sys.argv[3],
+              sys.argv[4], sys.argv[5], sys.argv[6])
