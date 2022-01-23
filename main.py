@@ -152,13 +152,30 @@ def KMP(row, x, y, docArray, imgArray):
     return colLst
 
 
+def randomSearch(row, col, docArray, docHeight, docWidth):
+    factor = 0.05 * imgHeight * imgWidth
+    # n can quantify the accuracy
+    n = int(factor)
+    for i in range(n):
+        x = random.randint(0, imgHeight - 1)
+        y = random.randint(0, imgWidth - 1)
+        try:
+            if (not pixelsMatch(row + x, col + y, x, y, docArray, docHeight, docWidth)):
+                return False
+            else:
+                continue
+        except IndexError:
+            return False
+    return True
+
+
 def main():
     crop = cropImage()
     count = 0
     x = crop[0]
     y = crop[1]
     func_dict = {"0": validateCorners,
-                 "1": diagonalSearch, "2": validateFullImage}
+                 "1": randomSearch, "2": validateFullImage}
     for row in range(docHeight-imgHeight+1):
         KMPLst = KMP(row, x, y, docArray, imgArray)
         if (len(KMPLst) != 0):
