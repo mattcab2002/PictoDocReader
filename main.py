@@ -16,6 +16,7 @@ docSize = docArray.shape
 docHeight = len(docArray)
 docWidth = len(docArray[0])
 
+
 def findOccurence(func, x, y):
     return func(x, y)
 
@@ -39,6 +40,7 @@ def findAllOccurences(func, row, col, x, y, count):
         print("{}th Occurence located @ Top Left Corner: ({},{}), Top Right Corner: ({},{}), Bottom Left Corner: ({},{}), Bottom Right Corner: ({},{})".format(count,
                                                                                                                                                                row, col, row+imgWidth, col, row, col+imgHeight, row+imgWidth, col+imgHeight))
         showImage(docArray, row-x, col-y, imgWidth, imgHeight, 4)
+
 
 def pixelsMatch(docRow, docCol, imgRow, imgCol):
     if (docRow >= docHeight) or (docCol >= docWidth):
@@ -74,6 +76,7 @@ def validateFullImage(row, col):
                 return False
     return True
 
+
 def cropImage():
     pixel = imgArray[0][0]
     for row in range(imgHeight):
@@ -100,6 +103,59 @@ def diagonalSearch(row, col, docArray, docHeight, docWidth):
     return True
 
 
+def longestPrefixSuffix(s):
+    n = len(s)
+    lps = [0] * n
+    l = 0
+    i = 1
+    while (i < n):
+        if (s[i] == s[l]):
+            l = l + 1
+            lps[i] = l
+            i = i + 1
+        else:
+            if (l != 0):
+                l = lps[l - 1]
+            else:
+                lps[i] = 0
+                i = i + 1
+    return lps
+
+
+def KMP(row, x, y, docArray, imgArray):
+    if len(docArray[0][0]) == 4:
+        docArray = docArray[:, :, 0:-1]
+    if len(imgArray[0][0]) == 4:
+        imgArray = imgArray[:, :, 0:-1]
+
+    docRow = docArray[row].flatten()
+    imgRow = imgArray[x].flatten()
+    n = len(docRow)
+    m = len(imgRow)
+    i = 0
+    j = 0
+    lps = longestPrefixSuffix(imgRow)
+    colLst = []
+    while (i < n):
+        if imgRow[j] == docRow[i]:
+            i += 1
+            j += 1
+
+        if j == m:
+            col = int(((i - m) / 3) - y)
+            colLst.append(col)
+
+            j = lps[j - 1]
+
+        elif i < n and imgRow[j] != docRow[i]:
+            if j != 0:
+                j = lps[j - 1]
+            else:
+                i += 1
+
+    return colLst
+
+
 def main():
     crop = cropImage()
     count = 0
@@ -107,10 +163,10 @@ def main():
     y = crop[1]
     func_dict = {"0": validateCorners,
                  "1": diagonalSearch, "2": validateFullImage}
-    print(imgArray[0][0])
     for row in range(docHeight-imgHeight+1):
-        for col in range(docWidth-imgWidth+1):
-            if (pixelsMatch(row, col, x, y)):  # find first instance of correct pixel
+        KMPLst = KMP(row, x, y, docArray, imgArray)
+        if (len(KMPLst) != 0):
+            for col in KMPLst:
                 if(sys.argv[1] == "0"):
                     findFirstOccurence(
                         func_dict[sys.argv[2]], row, col, x, y)
@@ -125,7 +181,7 @@ def main():
 
 
 if __name__ == "__main__":
-    for entry in os.scandir(r'pages'):
+    for entry in os.scandir(r'convertedPages'):
         if (entry.path.endswith('.png')):
             docArray = imread(entry.path)
             docSize = docArray.shape
