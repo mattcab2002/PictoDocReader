@@ -12,7 +12,7 @@ A project created for the 9th edition of McGill's hackathon McHacks (2022). Crea
 -   [Cropping](#cropping)
 -   [Threading](#threading)
 -   [Dash Application](#dash-application)
--   [PictoDocReader In The Future](#pictodocreacer-in-the-future)
+-   [PictoDocReader In The Future](#pictodocreader-in-the-future)
 -   [Disclaimer](#disclaimer)
 -   [Credits](#credits)
 
@@ -94,8 +94,8 @@ A pixel in the image can be a subset of the face of red-green pixels found on th
 Here's an example of a situation where this solution would seem fit:
 
 <div align="center">
-    <img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" width="300"/>
-	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 2" width="300"/>
+    <img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" width="350"/>
+	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 2" width="350"/>
 </div>
 
 ## Disclaimer
