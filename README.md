@@ -94,8 +94,8 @@ A pixel in the image can be a subset of the face of red-green pixels found on th
 Here's an example of a situation where this solution would seem fit:
 
 <div align="center">
-	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 1" />
-	<img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" />
+    <img src="https://i.imgur.com/rZH1e7Q.png" alt="Harddisk Example 1" width="200"/>
+	<img src="https://i.imgur.com/hmlOVFW.png" alt="Harddisk Example 2" width="200"/>
 </div>
 
 ## Disclaimer
@@ -104,6 +104,6 @@ The runtime of the program is greatly affected based off the number of CPU cores
 
 ## Credits
 
-MAAG innovations, a group comprised [Abhijeet Praveen](https://github.com/abhijeetpraveen), [Athavan Thambimuthu](https://github.com/Arty2001), [Gianluca Piccirillo](https://github.com/GianlucaP106), and [Matthew Cabral](https://github.com/mattcab2002).
+MAAG innovations, a group comprised [Matthew Cabral](https://github.com/mattcab2002), [Abhijeet Praveen](https://github.com/abhijeetpraveen), [Athavan Thambimuthu](https://github.com/Arty2001), and [Gianluca Piccirillo](https://github.com/GianlucaP106).
 
 The following [Dash Uploader Component](#https://github.com/np-8/dash-uploader) helped in the development of the Dash application immensely and we would like to thank the contributors.
