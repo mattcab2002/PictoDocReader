@@ -91,7 +91,7 @@ def callScript(btn1, btn2):
         occurences = '1'
     if btn1 or btn2:
         subprocess.check_output(
-            'python3 convertPDF.py', shell=True)
+            'python3 pdfToImgConverter.py', shell=True)
         result = subprocess.check_output(
             'python3 main.py {} {}'.format(occurences, searchMethod), shell=True)
         try:

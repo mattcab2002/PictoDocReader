@@ -21,5 +21,3 @@ if __name__ == '__main__':
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-    convert_pdf_to_image('documents/textbook1.pdf')

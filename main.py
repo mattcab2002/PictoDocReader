@@ -5,16 +5,12 @@ from plotOutline import *
 import time
 import shutil
 import os
+from storage import store_file
 
-imgArray = imread("images/img5.png")
+imgArray = imread(os.path.join('images/', os.listdir('images/')[0]))
 imgSize = imgArray.shape
 imgHeight = len(imgArray)
 imgWidth = len(imgArray[0])
-
-docArray = imread("documents/doc5.png")
-docSize = docArray.shape
-docHeight = len(docArray)
-docWidth = len(docArray[0])
 
 
 def findOccurence(func, x, y):
@@ -189,9 +185,9 @@ if __name__ == "__main__":
             docWidth = len(docArray[0])
             main()
     # copy documents and image to assets for future reference
-    shutil.copyfile(os.path.join('images/', os.listdir('images/')
-                    [0]), os.path.join('assets/', os.listdir('images/')[0]))
+    store_file(os.path.join('images/', os.listdir('images/')
+                            [0]))
     shutil.rmtree(f'images/')
-    shutil.copyfile(os.path.join('documents/', os.listdir('documents/')
-                    [0]), os.path.join('assets/', os.listdir('documents/')[0]))
+    store_file(os.path.join('documents/', os.listdir('documents/')
+                            [0]))
     shutil.rmtree(f'documents/')
